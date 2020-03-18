@@ -9,7 +9,7 @@ class PySpark_ETL:
                            ' from FGLEDG '
                            'where EGAIT1 in ("49010020","49010030","40000020")')
 
-        self.Query_Writer(tablename='Infor_GL', mode='overwrite')
+        self.Query_Writer(tablename='Infor_GL_test', mode='overwrite')
     def DB_reader(self, db_name, table_names_list):
         self.spark = SparkSession.builder.appName("Python Spark SQL ETL").config("spark.master", "local[*]"). \
             config("spark.driver.memory", "8g").config("spark.debug.maxToStringFields", "500").getOrCreate()
@@ -30,8 +30,8 @@ class PySpark_ETL:
     def Query_Excuter(self, sql):
         self.newdf = self.spark.sql(sql)
     def Query_Writer(self, tablename, mode):
-        load_db_url = "jdbc:mysql://127.0.0.1:3306/ibn_sina"
-        load_db_properties = {"user": "root", "password": "root"}
+        load_db_url = "jdbc:mysql://localhost:3306/ibn_sina_dev"
+        load_db_properties = {"user": "amr", "password": "Ck9dmt5s5@"}
         self.newdf.write.jdbc(url=load_db_url, table=tablename, mode=mode, properties=load_db_properties)
 
 PySpark_ETL()
