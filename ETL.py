@@ -1,7 +1,7 @@
 from pyspark.sql import SparkSession
 class PySpark_ETL:
     def __init__(self):
-        self.DB_reader(db_name='DTAHUB2018', table_names_list=['FGLEDG'])
+        self.DB_reader(db_name=' ', table_names_list=[' '])
 
         self.Query_Excuter('select EGAIT1 as account_number ,'
                            ' EGACDT as journal_date,'
@@ -9,13 +9,13 @@ class PySpark_ETL:
                            ' from FGLEDG '
                            'where EGAIT1 in ("49010020","49010030","40000020")')
 
-        self.Query_Writer(tablename='Infor_GL_test', mode='overwrite')
+        self.Query_Writer(tablename=' ', mode=' ')
     def DB_reader(self, db_name, table_names_list):
         self.spark = SparkSession.builder.appName("Python Spark SQL ETL").config("spark.master", "local[*]"). \
             config("spark.driver.memory", "8g").config("spark.debug.maxToStringFields", "500").getOrCreate()
         self.host = "10.44.62.110"
-        self.username = "SRVDTAHUBP"
-        self.password = "jdhsjkfh98"
+        self.username = " "
+        self.password = " "
         self.jdbcType = "as400"
         self.driver = "com.ibm.as400.access.AS400JDBCDriver"
         self.connection_type = "jdbc"
@@ -31,7 +31,7 @@ class PySpark_ETL:
         self.newdf = self.spark.sql(sql)
     def Query_Writer(self, tablename, mode):
         load_db_url = "jdbc:mysql://localhost:3306/ibn_sina_dev"
-        load_db_properties = {"user": "amr", "password": "Ck9dmt5s5@"}
+        load_db_properties = {"user": " ", "password": " "}
         self.newdf.write.jdbc(url=load_db_url, table=tablename, mode=mode, properties=load_db_properties)
 
 PySpark_ETL()
